@@ -1,11 +1,14 @@
 {
   "backendPath": "/home/rosa/projects/personal/alcoholic-rat",
-  "lastSyncedCommit": "e5b1cd0a03cd2eb2919d5861eca893e3b85a6e92",
+  "lastSyncedCommit": "bd484fc0b672dd2e3b04a75cf2dd3960ee692f0a",
   "lastSyncedAt": "2026-10-26",
   "covered": [
     "POST /auth/register",
     "POST /auth/login",
     "GET /bars",
-    "POST /bars"
+    "POST /bars",
+    "GET /drinks",
+    "POST /drinks",
+    "POST /posts"
   ]
 }
