@@ -1,4 +1,13 @@
-import { Beer, Camera, LogOut, ShieldCheck, Store, User } from "lucide-react"
+import {
+  Beer,
+  Camera,
+  LogOut,
+  ShieldCheck,
+  SquarePlus,
+  Store,
+  User,
+  Wine,
+} from "lucide-react"
 
 import { useAuth, useSession } from "@/lib/auth"
 import { href, type Route } from "@/lib/router"
@@ -23,8 +32,10 @@ const NAV_ITEMS: {
   icon: typeof Store
   soon?: boolean
 }[] = [
+  { route: "publicar", label: "Publicar", icon: SquarePlus },
   { route: "feed", label: "Feed", icon: Camera, soon: true },
   { route: "bares", label: "Bares", icon: Store },
+  { route: "bebidas", label: "Bebidas", icon: Wine },
 ]
 
 export function AppSidebar({ route }: { route: Route }) {

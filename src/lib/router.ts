@@ -1,8 +1,8 @@
 import * as React from "react"
 
-export type Route = "bares" | "feed"
+export type Route = "bares" | "bebidas" | "publicar" | "feed"
 
-const ROUTES: Route[] = ["bares", "feed"]
+const ROUTES: Route[] = ["bares", "bebidas", "publicar", "feed"]
 const DEFAULT_ROUTE: Route = "bares"
 
 function readHash(): Route {

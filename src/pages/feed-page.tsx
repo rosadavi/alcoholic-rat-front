@@ -13,7 +13,8 @@ export function FeedPage() {
         <Camera className="size-8 text-muted-foreground" />
         <p className="font-medium">Em breve</p>
         <p className="text-sm text-muted-foreground">
-          A publicação de fotos e o feed ainda não existem na API.
+          Você já pode publicar rolês, mas a API ainda não lista os posts nem
+          recebe fotos.
         </p>
       </div>
     </div>
