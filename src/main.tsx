@@ -3,19 +3,15 @@ import { createRoot } from "react-dom/client"
 
 import "./index.css"
 import { ThemeProvider } from "@/components/theme-provider.tsx"
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar.tsx"
-import { AppSidebar } from "@/components/app-sidebar.tsx"
-import { Header } from "./components/layout/header"
+import { AuthProvider } from "@/lib/auth"
+import { App } from "./App"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <Header fixed />
-        </SidebarInset>
-      </SidebarProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </ThemeProvider>
   </StrictMode>
 )
