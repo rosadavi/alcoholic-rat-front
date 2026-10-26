@@ -17,6 +17,62 @@ export type BarRequest = {
   longitude: number
 }
 
+export type Drink = {
+  id: string
+  title: string
+  description: string | null
+  volumeMl: number
+  alcoholPercentage: number
+}
+
+export type DrinkRequest = {
+  title: string
+  description?: string
+  volumeMl: number
+  alcoholPercentage: number
+}
+
+// com drinkId, os outros campos substituem os do catalogo so nesse post;
+// sem drinkId (bebida propria), title, volumeMl e alcoholPercentage sao obrigatorios
+export type PostDrinkRequest = {
+  drinkId?: string
+  title?: string
+  volumeMl?: number
+  alcoholPercentage?: number
+}
+
+export type PostCreateRequest = {
+  barId?: string
+  description?: string
+  drinks: PostDrinkRequest[]
+}
+
+export type PostDrink = {
+  id: string
+  drinkId: string | null
+  title: string
+  volumeMl: number
+  alcoholPercentage: number
+  addedAt: string
+}
+
+export type PostPhoto = {
+  id: string
+  url: string
+  contentType: string
+  addedAt: string
+}
+
+export type Post = {
+  id: string
+  authorLogin: string
+  barId: string | null
+  description: string | null
+  createdAt: string
+  drinks: PostDrink[]
+  photos: PostPhoto[]
+}
+
 export type RegisterResponse = {
   id: string
   login: string
@@ -30,6 +86,9 @@ const ERROR_MESSAGES: Record<string, string> = {
     "Sua sessão expirou. Entre novamente.",
   "Only administrators can perform this action!":
     "Apenas administradores podem fazer isso.",
+  "Post must contain at least one drink": "Adicione pelo menos uma bebida.",
+  "Drink must have a title, volume and alcohol percentage":
+    "Bebidas próprias precisam de nome, volume e teor alcoólico.",
 }
 
 export class ApiError extends Error {
@@ -59,6 +118,12 @@ function translate(message: string) {
     return "Este email já está cadastrado."
   if (message.startsWith("Bar already exists"))
     return "Já existe um bar com esse nome."
+  if (message.startsWith("Drink already exists"))
+    return "Já existe uma bebida com esse nome."
+  if (message.startsWith("Bar not found"))
+    return "O bar escolhido não existe mais. Atualize a lista."
+  if (message.startsWith("Drink not found"))
+    return "Uma das bebidas escolhidas não existe mais. Atualize a lista."
   return message
 }
 
@@ -131,6 +196,14 @@ export const api = {
 
   createBar: (token: string, data: BarRequest) =>
     request<Bar>("/bars", { method: "POST", token, body: data }),
+
+  listDrinks: (token: string) => request<Drink[]>("/drinks", { token }),
+
+  createDrink: (token: string, data: DrinkRequest) =>
+    request<Drink>("/drinks", { method: "POST", token, body: data }),
+
+  createPost: (token: string, data: PostCreateRequest) =>
+    request<Post>("/posts", { method: "POST", token, body: data }),
 
   // O token nao carrega o papel do usuario. POST /bars com corpo vazio e
   // barrado com 403 para USER e com 400 (validacao) para ADMIN, sem criar nada.
